@@ -16,7 +16,7 @@ typedef struct
     char lettre;
     int point;
 
-}piece;
+} piece_t;
 
 /** 
 * représente une case du plateau
@@ -31,9 +31,9 @@ typedef struct
     int valeurMot;
     int x;
     int y;
-    piece piece; 
+    piece_t piece; 
 
-}Case;
+} case_t;
 
 /**
  * représente le plateau de jeu
@@ -46,10 +46,26 @@ typedef struct
 {
     int x;
     int y;
-    Case** plateau;
+    case_t** plateau;
 
-}plateau;
+} plateau_t;
 
+// Déclarations des getters et setters pour piece
+char getLettre(piece_t *p);
+void setLettre(piece_t *p, char lettre);
+int getPoint(piece_t *p);
+void setPoint(piece_t *p, int point);
 
+// Déclarations des getters et setters pour Case
+int getValeurLettre(case_t *c);
+void setValeurLettre(case_t *c, int valeurLettre);
+int getValeurMot(case_t *c);
+void setValeurMot(case_t *c, int valeurMot);
+int getX(case_t *c);
+void setX(case_t *c, int x);
+int getY(case_t *c);
+void setY(case_t *c, int y);
+piece_t getPiecec(case_t *c);
+void setPiece(case_t *c, piece_t p);
 
 #endif //TYPES_H_INCLUDED
