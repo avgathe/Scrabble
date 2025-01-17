@@ -89,8 +89,8 @@ void setPiece(case_t *c, piece_t p);
 int getXPlateau(plateau_t *plateau);
 void setXPlateau(plateau_t *plateau, int x);
 
-int getYplateau(plateau_t *plateau);
-void setYplateau(plateau_t *plateau, int y);
+int getYPlateau(plateau_t *plateau);
+void setYPlateau(plateau_t *plateau, int y);
 
 case_t **getPlateau(plateau_t *plateau);
 void setPlateau(plateau_t *plateau, case_t **plateau_data);
