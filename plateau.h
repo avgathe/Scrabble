@@ -8,7 +8,7 @@
  * 
  * @return plateau initialisé
  */
-plateau* creerPlateauFr();
+plateau_t * creerPlateauFr();
 
 /**
  * Initialise un plateau en demandant à l'utilisateur de configurer chaque case
@@ -17,13 +17,13 @@ plateau* creerPlateauFr();
  * @param y : nombre de lignes du plateau
  * @return plateau initialisé ou NULL en cas d'erreur
  */
-plateau* creerPlateauPersonnalise(int x, int y);
+plateau_t * creerPlateauPersonnalise(int x, int y);
 
 /**
  * Libère la mémoire allouée pour un plateau
  *
  * @param p Pointeur vers le plateau à libérer
  */
-void libererPlateau(plateau* p);
+void libererPlateau(plateau_t * p);
 
 #endif //PLATEAU_H_INCLUDED

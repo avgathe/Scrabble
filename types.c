@@ -39,19 +39,19 @@ void setValeurMot(case_t *c, int valeurMot) {
     c->valeurMot = valeurMot;
 }
 
-int getX(case_t *c) {
+int getXPiece(case_t *c) {
     return c->x;
 }
 
-void setX(case_t *c, int x) {
+void setXPiece(case_t *c, int x) {
     c->x = x;
 }
 
-int getY(case_t *c) {
+int getYPiece(case_t *c) {
     return c->y;
 }
 
-void setY(case_t *c, int y) {
+void setYPiece(case_t *c, int y) {
     c->y = y;
 }
 
