@@ -55,9 +55,6 @@ typedef struct
 /*******************GETTERS/SETTERS*PIECE*******************/
 /***********************************************************/
 
-/***********************************************************/
-/*******************GETTERS/SETTERS*PIECE*******************/
-/***********************************************************/
 
 char getLettre(piece_t *p);
 void setLettre(piece_t *p, char lettre);
@@ -70,21 +67,17 @@ void setPoint(piece_t *p, int point);
 /*******************GETTERS/SETTERS*PIECE*******************/
 /***********************************************************/
 
-/***********************************************************/
-/*******************GETTERS/SETTERS*PIECE*******************/
-/***********************************************************/
-
 int getValeurLettre(case_t *c);
 void setValeurLettre(case_t *c, int valeurLettre);
 
 int getValeurMot(case_t *c);
 void setValeurMot(case_t *c, int valeurMot);
 
-int getX(case_t *c);
-void setX(case_t *c, int x);
+int getXPiece(case_t *c);
+void setXPiece(case_t *c, int x);
 
-int getY(case_t *c);
-void setY(case_t *c, int y);
+int getYPiece(case_t *c);
+void setYPiece(case_t *c, int y);
 
 piece_t getPiece(case_t *c);
 void setPiece(case_t *c, piece_t p);
