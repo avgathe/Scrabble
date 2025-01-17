@@ -28,3 +28,29 @@ void initAlphabetFrancais(piece_t alphabet[26]) {
     alphabet[24] = (piece_t) { .lettre = 'Y', .point = 10 };
     alphabet[25] = (piece_t) { .lettre = 'Z', .point = 10 };
 }
+
+alphabet_t *initAlphabetPersonnalise(){
+    alphabet_t *alphabet_perso = malloc(sizeof(alphabet_t));
+    int taille_alphabet = 0;
+    printf("Veuillez entrer les valeurs de l'alphabet personnalisé\n");
+    printf("Quand vous avez fini, appuyez sur la touche entrée\n");
+    printf("Quel est le nombre de lettres de votre alphabet ? ");
+    scanf("%d", &taille_alphabet);
+
+    alphabet_perso->taille = taille_alphabet;
+    alphabet_perso->alphabet = malloc(taille_alphabet * sizeof(piece_t));
+
+
+    for (int i = 0; i < taille_alphabet; i++) {
+        char lettre;
+        int point;
+        printf("Lettre : ");
+        scanf(" %c", &lettre);
+        printf("Point : ");
+        scanf("%d", &point);
+
+        alphabet_perso->alphabet[i] = (piece_t) { .lettre = lettre, .point = point };
+    }
+
+    return alphabet_perso;
+}

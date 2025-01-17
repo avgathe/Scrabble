@@ -5,10 +5,11 @@
 
 int main(int argc, char *argv[]) {
 
-    piece_t alphabet[26];
-    initAlphabetFrancais(alphabet);
+    alphabet_t *alphabet_perso = initAlphabetPersonnalise();
+    piece_t *alphabet = alphabet_perso->alphabet;
+    int taille_alphabet = alphabet_perso->taille;
 
-    for (int i = 0; i < 26; i++) {
+    for (int i = 0; i < taille_alphabet; i++) {
         printf("Lettre : %c, Point : %d\n", getLettre(&alphabet[i]), getPoint(&alphabet[i]));
     }
 
