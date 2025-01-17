@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.yacc": "bison",
+        "*.lex": "lex",
+        "stdlib.h": "c",
+        "stdio.h": "c"
+    }
+}

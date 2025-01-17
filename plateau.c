@@ -4,7 +4,7 @@
 #include "plateau.h"
 
 /*initialise un tableau de 15 sur 15 avec les cases spéciales au même endroit que pour le plateau de Crabble français*/
-plateau* creerPlateauFr() {
+plateau_t* creerPlateauFr() {
     // Déclaration de la grille prédéfinie pour un plateau de Scrabble français
     const int grilleSpeciale[15][15] = {
         {5, 1, 1, 2, 1, 1, 1, 5, 1, 1, 1, 2, 1, 1, 5},
@@ -25,7 +25,7 @@ plateau* creerPlateauFr() {
     };
 
 
-    plateau* p = (plateau*)malloc(sizeof(plateau));
+    plateau_t* p = (plateau_t*)malloc(sizeof(plateau_t));
     if (p == NULL) {
         printf("Erreur d'allocation de mémoire pour le plateau.\n");
         return NULL;
@@ -35,7 +35,7 @@ plateau* creerPlateauFr() {
     p->y = 15; 
 
 
-    p->plateau = (Case**)malloc(p->y * sizeof(Case*));
+    p->plateau = (case_t**)malloc(p->y * sizeof(case_t*));
     if (p->plateau == NULL) {
         free(p);
         printf("Erreur d'allocation de mémoire pour les lignes du plateau.\n");
@@ -43,7 +43,7 @@ plateau* creerPlateauFr() {
     }
 
     for (int i = 0; i < p->y; i++) {
-        p->plateau[i] = (Case*)malloc(p->x * sizeof(Case));
+        p->plateau[i] = (case_t*)malloc(p->x * sizeof(case_t));
         if (p->plateau[i] == NULL) {
             for (int j = 0; j < i; j++) {
                 free(p->plateau[j]);
@@ -86,9 +86,9 @@ plateau* creerPlateauFr() {
 }
 
 /*initialise un tableau avec une taille de plateau et des cases personnalisées*/
-plateau* creerPlateauPersonnalise(int x, int y) {
+plateau_t* creerPlateauPersonnalise(int x, int y) {
 
-    plateau* p = (plateau*)malloc(sizeof(plateau));
+    plateau_t* p = (plateau_t*)malloc(sizeof(plateau_t));
     if (p == NULL) {
         return NULL;
     }
@@ -96,7 +96,7 @@ plateau* creerPlateauPersonnalise(int x, int y) {
     p->x = x;
     p->y = y;
 
-    p->plateau = (Case**)malloc(y * sizeof(Case*));
+    p->plateau = (case_t**)malloc(y * sizeof(case_t*));
     if (p->plateau == NULL) {
         free(p); 
         return NULL;
@@ -104,7 +104,7 @@ plateau* creerPlateauPersonnalise(int x, int y) {
 
 
     for (int i = 0; i < y; i++) {
-        p->plateau[i] = (Case*)malloc(x * sizeof(Case));
+        p->plateau[i] = (case_t*)malloc(x * sizeof(case_t));
         if (p->plateau[i] == NULL) {
 
             for (int j = 0; j < i; j++) {
@@ -160,7 +160,7 @@ plateau* creerPlateauPersonnalise(int x, int y) {
 }
 
 /*libère la mémoire allouée pour la création d'un plateau de jeu*/
-void libererPlateau(plateau* p) {
+void libererPlateau(plateau_t* p) {
     if (p != NULL) {
         for (int i = 0; i < p->y; i++) {
             free(p->plateau[i]); 

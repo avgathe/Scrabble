@@ -50,22 +50,49 @@ typedef struct
 
 } plateau_t;
 
-// Déclarations des getters et setters pour piece
+
+/***********************************************************/
+/*******************GETTERS/SETTERS*PIECE*******************/
+/***********************************************************/
+
 char getLettre(piece_t *p);
 void setLettre(piece_t *p, char lettre);
+
 int getPoint(piece_t *p);
 void setPoint(piece_t *p, int point);
 
-// Déclarations des getters et setters pour Case
+
+/***********************************************************/
+/*******************GETTERS/SETTERS*PIECE*******************/
+/***********************************************************/
+
 int getValeurLettre(case_t *c);
 void setValeurLettre(case_t *c, int valeurLettre);
+
 int getValeurMot(case_t *c);
 void setValeurMot(case_t *c, int valeurMot);
+
 int getX(case_t *c);
 void setX(case_t *c, int x);
+
 int getY(case_t *c);
 void setY(case_t *c, int y);
-piece_t getPiecec(case_t *c);
+
+piece_t getPiece(case_t *c);
 void setPiece(case_t *c, piece_t p);
+
+/***********************************************************/
+/******************GETTERS/SETTERS*TABLEAU******************/
+/***********************************************************/
+
+int getXPlateau(plateau_t* plateau);
+void set_x(plateau_t* plateau, int x);
+
+int get_y(plateau_t* plateau);
+void set_y(plateau_t* plateau, int y);
+
+case_t** get_plateau(plateau_t* plateau);
+void set_plateau(plateau_t* plateau, case_t** plateau_data);
+
 
 #endif //TYPES_H_INCLUDED
