@@ -24,61 +24,64 @@ plateau_t* creerPlateauFr() {
         {5, 1, 1, 2, 1, 1, 1, 5, 1, 1, 1, 2, 1, 1, 5},
     };
 
-
+    // Allocation du plateau
     plateau_t* p = (plateau_t*)malloc(sizeof(plateau_t));
     if (p == NULL) {
         printf("Erreur d'allocation de mémoire pour le plateau.\n");
         return NULL;
     }
 
-    p->x = 15; 
-    p->y = 15; 
+    // Initialisation des dimensions
+    setXPlateau(p, 15);
+    setYPlateau(p, 15);
 
-
-    p->plateau = (case_t**)malloc(p->y * sizeof(case_t*));
-    if (p->plateau == NULL) {
+    // Allocation des lignes du plateau
+    setPlateau(p, (case_t**)malloc(getYPlateau(p) * sizeof(case_t*)));
+    if (getPlateau(p) == NULL) {
         free(p);
         printf("Erreur d'allocation de mémoire pour les lignes du plateau.\n");
         return NULL;
     }
 
-    for (int i = 0; i < p->y; i++) {
-        p->plateau[i] = (case_t*)malloc(p->x * sizeof(case_t));
-        if (p->plateau[i] == NULL) {
+    // Allocation et initialisation des cases
+    for (int i = 0; i < getYPlateau(p); i++) {
+        getPlateau(p)[i] = (case_t*)malloc(getXPlateau(p) * sizeof(case_t));
+        if (getPlateau(p)[i] == NULL) {
             for (int j = 0; j < i; j++) {
-                free(p->plateau[j]);
+                free(getPlateau(p)[j]);
             }
-            free(p->plateau);
+            free(getPlateau(p));
             free(p);
             printf("Erreur d'allocation de mémoire pour une ligne du plateau.\n");
             return NULL;
         }
 
+        for (int j = 0; j < getXPlateau(p); j++) {
+            // Initialisation des coordonnées de la case
+            setXPiece(&getPlateau(p)[i][j], j);
+            setYPiece(&getPlateau(p)[i][j], i);
 
-        for (int j = 0; j < p->x; j++) {
-            p->plateau[i][j].x = j;
-            p->plateau[i][j].y = i;
-
-
+            // Initialisation des valeurs spéciales de la case
             if (grilleSpeciale[i][j] == 1) {
-                p->plateau[i][j].valeurLettre = 1;
-                p->plateau[i][j].valeurMot = 1;
+                setValeurLettre(&getPlateau(p)[i][j], 1);
+                setValeurMot(&getPlateau(p)[i][j], 1);
             } else if (grilleSpeciale[i][j] == 2) {
-                p->plateau[i][j].valeurLettre = 2;
-                p->plateau[i][j].valeurMot = 1;
+                setValeurLettre(&getPlateau(p)[i][j], 2);
+                setValeurMot(&getPlateau(p)[i][j], 1);
             } else if (grilleSpeciale[i][j] == 3) {
-                p->plateau[i][j].valeurLettre = 3;
-                p->plateau[i][j].valeurMot = 1;
+                setValeurLettre(&getPlateau(p)[i][j], 3);
+                setValeurMot(&getPlateau(p)[i][j], 1);
             } else if (grilleSpeciale[i][j] == 4) {
-                p->plateau[i][j].valeurLettre = 1;
-                p->plateau[i][j].valeurMot = 2;
+                setValeurLettre(&getPlateau(p)[i][j], 1);
+                setValeurMot(&getPlateau(p)[i][j], 2);
             } else if (grilleSpeciale[i][j] == 5) {
-                p->plateau[i][j].valeurLettre = 1;
-                p->plateau[i][j].valeurMot = 3;
+                setValeurLettre(&getPlateau(p)[i][j], 1);
+                setValeurMot(&getPlateau(p)[i][j], 3);
             }
 
-            p->plateau[i][j].piece.lettre = '\0'; 
-            p->plateau[i][j].piece.point = 0;   
+            // Initialisation de la pièce vide
+            piece_t pieceVide = { .lettre = '\0', .point = 0 };
+            setPiece(&getPlateau(p)[i][j], pieceVide);
         }
     }
 
@@ -87,35 +90,38 @@ plateau_t* creerPlateauFr() {
 
 /*initialise un tableau avec une taille de plateau et des cases personnalisées*/
 plateau_t* creerPlateauPersonnalise(int x, int y) {
-
+    // Allocation mémoire pour le plateau
     plateau_t* p = (plateau_t*)malloc(sizeof(plateau_t));
     if (p == NULL) {
+        printf("Erreur d'allocation de mémoire pour le plateau.\n");
         return NULL;
     }
 
-    p->x = x;
-    p->y = y;
+    // Initialisation des dimensions du plateau
+    setXPlateau(p, x);
+    setYPlateau(p, y);
 
-    p->plateau = (case_t**)malloc(y * sizeof(case_t*));
-    if (p->plateau == NULL) {
-        free(p); 
+    // Allocation des lignes du plateau
+    setPlateau(p, (case_t**)malloc(getYPlateau(p) * sizeof(case_t*)));
+    if (getPlateau(p) == NULL) {
+        free(p);
+        printf("Erreur d'allocation de mémoire pour les lignes du plateau.\n");
         return NULL;
     }
 
-
-    for (int i = 0; i < y; i++) {
-        p->plateau[i] = (case_t*)malloc(x * sizeof(case_t));
-        if (p->plateau[i] == NULL) {
-
+    // Allocation et configuration des cases
+    for (int i = 0; i < getYPlateau(p); i++) {
+        getPlateau(p)[i] = (case_t*)malloc(getXPlateau(p) * sizeof(case_t));
+        if (getPlateau(p)[i] == NULL) {
             for (int j = 0; j < i; j++) {
-                free(p->plateau[j]);
+                free(getPlateau(p)[j]);
             }
-            free(p->plateau);
+            free(getPlateau(p));
             free(p);
             return NULL;
         }
 
-        for (int j = 0; j < x; j++) {
+        for (int j = 0; j < getXPlateau(p); j++) {
             printf("Configurer la case (%d, %d):\n", i, j);
             printf("1. Case simple\n");
             printf("2. Mot compte double\n");
@@ -126,28 +132,31 @@ plateau_t* creerPlateauPersonnalise(int x, int y) {
             int choix;
             scanf("%d", &choix);
 
-            p->plateau[i][j].valeurLettre = 1;
-            p->plateau[i][j].valeurMot = 1;
-            p->plateau[i][j].x = j;
-            p->plateau[i][j].y = i;
-            p->plateau[i][j].piece.lettre = '\0';
-            p->plateau[i][j].piece.point = 0;
+            // Initialisation par défaut de la case
+            setValeurLettre(&getPlateau(p)[i][j], 1);
+            setValeurMot(&getPlateau(p)[i][j], 1);
+            setXPiece(&getPlateau(p)[i][j], j);
+            setYPiece(&getPlateau(p)[i][j], i);
 
+            // Initialisation d'une pièce vide
+            piece_t pieceVide = { .lettre = '\0', .point = 0 };
+            setPiece(&getPlateau(p)[i][j], pieceVide);
 
+            // Modification selon le choix de l'utilisateur
             switch (choix) {
                 case 1: // Case simple
                     break;
                 case 2: // Mot compte double
-                    p->plateau[i][j].valeurMot = 2;
+                    setValeurMot(&getPlateau(p)[i][j], 2);
                     break;
                 case 3: // Mot compte triple
-                    p->plateau[i][j].valeurMot = 3;
+                    setValeurMot(&getPlateau(p)[i][j], 3);
                     break;
                 case 4: // Lettre compte double
-                    p->plateau[i][j].valeurLettre = 2;
+                    setValeurLettre(&getPlateau(p)[i][j], 2);
                     break;
                 case 5: // Lettre compte triple
-                    p->plateau[i][j].valeurLettre = 3;
+                    setValeurLettre(&getPlateau(p)[i][j], 3);
                     break;
                 default:
                     printf("Choix invalide. Case définie comme simple par défaut.\n");
@@ -159,16 +168,23 @@ plateau_t* creerPlateauPersonnalise(int x, int y) {
     return p;
 }
 
+
 /*libère la mémoire allouée pour la création d'un plateau de jeu*/
 void libererPlateau(plateau_t* p) {
     if (p != NULL) {
-        for (int i = 0; i < p->y; i++) {
-            free(p->plateau[i]); 
+        // Libération de chaque ligne du plateau
+        for (int i = 0; i < getYPlateau(p); i++) {
+            free(getPlateau(p)[i]);
         }
-        free(p->plateau); 
-        free(p);     
+
+        // Libération du tableau principal
+        free(getPlateau(p));
+
+        // Libération de la structure plateau
+        free(p);
     }
 }
+
 
 
 
