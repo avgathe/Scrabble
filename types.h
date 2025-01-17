@@ -50,6 +50,16 @@ typedef struct
 
 } plateau_t;
 
+/**
+ * représente les valeurs de l'alphabet (les points pour chaque lettre)
+ *
+ * @param alphabet : tableau de 26 pieces représentant les valeurs des lettres de l'alphabet
+ */
+typedef struct
+{
+    piece_t alphabet[26];
+} alphabet_t;
+
 // Déclarations des getters et setters pour piece
 char getLettre(piece_t *p);
 void setLettre(piece_t *p, char lettre);
@@ -65,7 +75,7 @@ int getX(case_t *c);
 void setX(case_t *c, int x);
 int getY(case_t *c);
 void setY(case_t *c, int y);
-piece_t getPiecec(case_t *c);
+piece_t getPiece(case_t *c);
 void setPiece(case_t *c, piece_t p);
 
 #endif //TYPES_H_INCLUDED
