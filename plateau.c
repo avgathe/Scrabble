@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include "types.h"
 #include "plateau.h"
+#include <SDL2/SDL.h>
+
+#define TILE_SIZE 40
+#define BOARD_SIZE 15
 
 /*initialise un tableau de 15 sur 15 avec les cases spéciales au même endroit que pour le plateau de Crabble français*/
 plateau_t* creerPlateauFr() {
@@ -184,6 +188,85 @@ void libererPlateau(plateau_t* p) {
         free(p);
     }
 }
+
+// Fonction de dessin du plateau avec SDL2
+void drawBoard(SDL_Renderer* renderer, plateau_t* p) {
+    for (int i = 0; i < p->y; i++) {
+        for (int j = 0; j < p->x; j++) {
+            SDL_Rect tile = {j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE};
+            case_t current_case = p->plateau[i][j];
+
+            // Choisir la couleur en fonction de la valeur du mot
+            if (current_case.valeurMot == 3) {
+                SDL_SetRenderDrawColor(renderer, 223, 30, 13, 0); // Lettre compte triple (Rouge)
+            } else if (current_case.valeurMot == 2) {
+                SDL_SetRenderDrawColor(renderer, 215, 162, 146, 0); // Mot compte double (Bleu)
+            } else if (current_case.valeurLettre == 2) {
+                SDL_SetRenderDrawColor(renderer, 144, 184, 209, 0); // Lettre compte double (Vert)
+            } else if (current_case.valeurLettre == 3) {
+                SDL_SetRenderDrawColor(renderer, 54, 181, 208, 0); // Lettre compte triple (Jaune)
+            } else {
+                SDL_SetRenderDrawColor(renderer, 21, 124, 107, 0); // Case normale (Gris clair)
+            }
+
+            SDL_RenderFillRect(renderer, &tile);
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Bordures noires
+            SDL_RenderDrawRect(renderer, &tile);
+        }
+    }
+}
+
+int main(int argc, char* argv[]) {
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        printf("Erreur SDL: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    SDL_Window* window = SDL_CreateWindow("Plateau Scrabble", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                          TILE_SIZE * BOARD_SIZE, TILE_SIZE * BOARD_SIZE, SDL_WINDOW_SHOWN);
+    if (!window) {
+        printf("Erreur création fenêtre: %s\n", SDL_GetError());
+        SDL_Quit();
+        return 1;
+    }
+
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
+        printf("Erreur création renderer: %s\n", SDL_GetError());
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
+    plateau_t* plateau = creerPlateauFr(); // Création du plateau
+
+    int running = 1;
+    SDL_Event event;
+
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = 0;
+            }
+        }
+
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Fond blanc
+        SDL_RenderClear(renderer);
+
+        drawBoard(renderer, plateau); // Dessiner le plateau
+
+        SDL_RenderPresent(renderer);
+    }
+
+    libererPlateau(plateau); // Libérer la mémoire allouée pour le plateau
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
+    return 0;
+}
+
 
 
 
