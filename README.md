@@ -14,7 +14,7 @@ Ce projet implémente un jeu de Scrabble en C, avec des fonctionnalités pour cr
 
 ├── .gitignore  
 ├── .bin  
-    └── main.o  
+\t└── main.o  
 ├── include  
     └── alphabet.h  
     └── gestionTourJeu.h  
