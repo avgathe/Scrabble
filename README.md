@@ -2,7 +2,7 @@
 
 ## Auteurs
 
-Agathe VAUTIER
+Agathe VAUTIER  
 Solian HERRERA
 Eric SORLUT
 Luka TEXIER
