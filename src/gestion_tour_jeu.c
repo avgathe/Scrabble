@@ -1,5 +1,5 @@
 
-#include "gestion_tour_jeu.h"
+#include "../include/gestion_tour_jeu.h"
 
 /******************************************************************** */
 /* 2) */

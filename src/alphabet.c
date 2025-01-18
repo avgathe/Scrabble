@@ -1,4 +1,4 @@
-#include "alphabet.h"
+#include "../include/alphabet.h"
 
 void initAlphabetFrancais(piece_t alphabet[26]) {
     alphabet[0] = (piece_t) { .lettre = 'A', .point = 1 };

@@ -3,8 +3,8 @@
 #include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "plateau.h"
-#include "types.h"
+#include "../include/plateau.h"
+#include "../include/types.h"
 
 /**********************************************************************************************************/
 /*******************************************COMMANDE*COMPILATION*******************************************/
@@ -228,27 +228,28 @@ void afficherBouton(SDL_Renderer *renderer, TTF_Font *font, const char *texte, i
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Bordure du bouton (noir)
     SDL_RenderDrawRect(renderer, &rect);
 }
-void afficherBouton(SDL_Renderer *renderer, TTF_Font *font, const char *texte, int x, int y) {
-    // Calculer la taille du texte
-    int textWidth, textHeight;
-    TTF_SizeText(font, texte, &textWidth, &textHeight);
 
-    // Définir la taille du bouton en fonction du texte
-    int width = textWidth + 20;  // Ajouter un peu d'espace autour du texte
-    int height = textHeight + 20;
+// void afficherBouton(SDL_Renderer *renderer, TTF_Font *font, const char *texte, int x, int y) {
+//     // Calculer la taille du texte
+//     int textWidth, textHeight;
+//     TTF_SizeText(font, texte, &textWidth, &textHeight);
 
-    // Dessiner le bouton
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Couleur du bouton (bleu)
-    SDL_Rect rect = {x, y, width, height};
-    SDL_RenderFillRect(renderer, &rect);
+//     // Définir la taille du bouton en fonction du texte
+//     int width = textWidth + 20;  // Ajouter un peu d'espace autour du texte
+//     int height = textHeight + 20;
 
-    // Afficher le texte au centre du bouton
-    afficherTexte(renderer, font, texte, x + (width - textWidth) / 2, y + (height - textHeight) / 2);
+//     // Dessiner le bouton
+//     SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255); // Couleur du bouton (bleu)
+//     SDL_Rect rect = {x, y, width, height};
+//     SDL_RenderFillRect(renderer, &rect);
 
-    // Dessiner la bordure du bouton (noir)
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Bordure noire
-    SDL_RenderDrawRect(renderer, &rect);
-}
+//     // Afficher le texte au centre du bouton
+//     afficherTexte(renderer, font, texte, x + (width - textWidth) / 2, y + (height - textHeight) / 2);
+
+//     // Dessiner la bordure du bouton (noir)
+//     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Bordure noire
+//     SDL_RenderDrawRect(renderer, &rect);
+// }
 
 
 // Fonction pour afficher le plateau

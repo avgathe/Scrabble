@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "types.h"
-#include "alphabet.h"
-#include "gestion_tour_jeu.h"
+#include "../include/types.h"
+#include "../include/alphabet.h"
+#include "../include/gestion_tour_jeu.h"
 
 
 int main(int argc, char *argv[]) {
