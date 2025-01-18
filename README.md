@@ -5,7 +5,7 @@
 Agathe VAUTIER  
 Solian HERRERA  
 Eric SORLUT  
-Luka TEXIER  
+Luka TEXIER
 
 ## Description
 Ce projet implémente un jeu de Scrabble en C, avec des fonctionnalités pour créer et personnaliser un plateau de jeu, gérer les tours de jeu, et vérifier les mots dans un dictionnaire.
@@ -27,4 +27,4 @@ Ce projet implémente un jeu de Scrabble en C, avec des fonctionnalités pour cr
     └── plateau.c  
     └── types.c  
 ├── Makefile  
-├── mot_scrabble_ods.txt  
+├── mot_scrabble_ods.txt
