@@ -28,5 +28,5 @@ Ce projet implémente un jeu de Scrabble en C, avec des fonctionnalités pour :
 │   ├── main.c                  
 │   ├── plateau.c  
 │   └── types.c                  
-├── Makefile
+├── Makefile  
 └── mot_scrabble_ods.txt    
