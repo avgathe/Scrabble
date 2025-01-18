@@ -1,6 +1,15 @@
 #ifndef TYPES_H_INCLUDED
 #define TYPES_H_INCLUDED
 
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200809L
+#endif
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
 /***********************************************************/
 /***************************TYPES***************************/
 /***********************************************************/

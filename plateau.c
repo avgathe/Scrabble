@@ -285,146 +285,56 @@ void afficherPlateau(SDL_Renderer* renderer, plateau_t* plateau) {
     }
 }
 
-// Fonction principale de l'application
-int main(int argc, char *argv[]) {
+// int main(int argc, char* argv[]) {
+//     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+//         printf("Erreur SDL: %s\n", SDL_GetError());
+//         return 1;
+//     }
 
-    // Initialisation de SDL et des extensions SDL_ttf et SDL_image
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        printf("Erreur d'initialisation SDL: %s\n", SDL_GetError());
-        return 1;
-    }
+//     SDL_Window* window = SDL_CreateWindow("Plateau Scrabble", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+//                                           TILE_SIZE * BOARD_SIZE, TILE_SIZE * BOARD_SIZE, SDL_WINDOW_SHOWN);
+//     if (!window) {
+//         printf("Erreur création fenêtre: %s\n", SDL_GetError());
+//         SDL_Quit();
+//         return 1;
+//     }
 
-    if (TTF_Init() != 0) {
-        printf("Erreur d'initialisation TTF: %s\n", TTF_GetError());
-        SDL_Quit();
-        return 1;
-    }
+//     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+//     if (!renderer) {
+//         printf("Erreur création renderer: %s\n", SDL_GetError());
+//         SDL_DestroyWindow(window);
+//         SDL_Quit();
+//         return 1;
+//     }
 
-    if (IMG_Init(IMG_INIT_PNG) != IMG_INIT_PNG) {
-        printf("Erreur d'initialisation IMG: %s\n", IMG_GetError());
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
-    }
+//     plateau_t* plateau = creerPlateauFr(); // Création du plateau
 
-    //création de la fenêtre
-    SDL_Window* window = SDL_CreateWindow("Scrabble", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
-    if (!window) {
-        printf("Erreur de création de la fenêtre: %s\n", SDL_GetError());
-        IMG_Quit();
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
-    }
+//     int running = 1;
+//     SDL_Event event;
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (!renderer) {
-        printf("Erreur de création du renderer: %s\n", SDL_GetError());
-        SDL_DestroyWindow(window);
-        IMG_Quit();
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
-    }
+//     while (running) {
+//         while (SDL_PollEvent(&event)) {
+//             if (event.type == SDL_QUIT) {
+//                 running = 0;
+//             }
+//         }
 
-    // Chargement de la police pour le texte
-    TTF_Font *font = TTF_OpenFont("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 24);
-    if (!font) {
-        printf("Erreur de chargement de la police: %s\n", TTF_GetError());
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        IMG_Quit();
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
-    }
+//         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Fond blanc
+//         SDL_RenderClear(renderer);
 
-    // Affichage de l'écran de choix
-    int plateauChoisi = 0; // 1 = Français, 2 = Personnalisé
-    SDL_Event event;
+//         drawBoard(renderer, plateau); // Dessiner le plateau
 
-    while (1) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                plateauChoisi = -1;
-                break;
-            }
+//         SDL_RenderPresent(renderer);
+//     }
 
-            if (event.type == SDL_MOUSEBUTTONDOWN) {
-                int x = event.button.x;
-                int y = event.button.y;
+//     libererPlateau(plateau); // Libérer la mémoire allouée pour le plateau
 
-                // Vérification des clics sur les boutons
-                if (x >= 100 && x <= 300 && y >= 100 && y <= 150) {
-                    plateauChoisi = 1; // Plateau français
-                    break;
-                } else if (x >= 100 && x <= 300 && y >= 200 && y <= 250) {
-                    plateauChoisi = 2; // Plateau personnalisé
-                    break;
-                }
-            }
-        }
+//     SDL_DestroyRenderer(renderer);
+//     SDL_DestroyWindow(window);
+//     SDL_Quit();
 
-        // Effacement de l'écran
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Fond noir
-        SDL_RenderClear(renderer);
-
-        // Affichage des choix
-        afficherTexte(renderer, font, "Choisir le type de plateau:", 150, 50);
-        afficherBouton(renderer, font, "Plateau Francais", 100, 100, 200, 50);
-        afficherBouton(renderer, font, "Plateau Personnalise", 100, 200, 200, 50);
-
-        SDL_RenderPresent(renderer);
-
-        // Si un choix est fait, sortir de la boucle
-        if (plateauChoisi > 0) break;
-    }
-
-    // Création du plateau selon le choix
-    plateau_t* plateau = NULL;
-    if (plateauChoisi == 1) {
-        plateau = creerPlateauFr();
-    } else if (plateauChoisi == 2) {
-        plateau = creerPlateauPersonnalise(15, 15); // Demander à l'utilisateur de configurer le plateau personnalisé
-    }
-
-    // Si aucun plateau n'est choisi, quitter
-    if (plateauChoisi == -1 || plateau == NULL) {
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        IMG_Quit();
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
-    }
-
-    // Affichage du plateau sélectionné
-    int running = 1;
-    while (running) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = 0;
-            }
-        }
-
-        // Effacement de l'écran et affichage du plateau
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // Fond blanc
-        SDL_RenderClear(renderer);
-        afficherPlateau(renderer, plateau);
-        SDL_RenderPresent(renderer);
-    }
-
-    // Libération des ressources
-    libererPlateau(plateau);
-    TTF_CloseFont(font);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    IMG_Quit();
-    TTF_Quit();
-    SDL_Quit();
-
-    return 0;
-}
+//     return 0;
+// }
 
 
 

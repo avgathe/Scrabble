@@ -17,12 +17,8 @@ typedef struct {
  */
 void initAlphabetFrancais(piece_t alphabet[26]);
 
-/**
- * Initialise les valeurs de l'alphabet personalisé
- *
- * @param alphabet : tableau de 26 entiers représentant les valeurs des lettres de l'alphabet personnalisé
- * @param alphabet_perso : tableau de 26 piece représentant les valeurs des lettres de l'alphabet personnalisé
- */
+/// @brief fonction qui demande a l'utilisateur de choisir un alphabet
+/// @return l'alphabet choisi
 alphabet_t *initAlphabetPersonnalise();
 
 #endif // ALPHABET_H_INCLUDED
