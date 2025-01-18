@@ -1,9 +1,24 @@
 #ifndef GESTION_TOUR_JEU_H
 #define GESTION_TOUR_JEU_H
 
+#include "alphabet.h"
 #include "types.h"
 
 #define MAX_WORD_LENGTH 50 //Mot le plus long dans le dictionnaire
+
+/******************************************************************** */
+/* 2) */
+/******************************************************************** */
+
+/// @brief fonction qui compte le nombre de points d'un mot suivant un alphabet et un plateau
+/// @param mot 
+/// @param alphabet 
+/// @param plateau 
+/// @param x 
+/// @param y 
+/// @param direction 
+/// @return le nombre de points du mot
+int compte_points_mot(char *mot, alphabet_t alphabet, plateau_t *plateau, int x, int y, int direction);
 
 
 /******************************************************************** */

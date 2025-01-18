@@ -1,12 +1,16 @@
 
 #include "gestion_tour_jeu.h"
 
-/*
+/******************************************************************** */
+/* 2) */
+/******************************************************************** */
 
-    Le joueur peut demander à vérifier la validité du mot de son adversaire 
-    pour instaurer une pénalité en cas de mot invalide.
 
- */
+
+
+/******************************************************************** */
+/* 3) */
+/******************************************************************** */
 
 int count_words_in_file(const char *filename) {
     FILE *file = fopen(filename, "r");

@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    char *my_word = "AGATHE";
+    char *my_word = "anticonstitutionnellement";
     char **dict = load_words_from_file(path, &nb_mot);
     if (!dict) {
         fprintf(stderr, "Error: Failed to load words from file\n");
